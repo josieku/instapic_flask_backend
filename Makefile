@@ -10,7 +10,7 @@ system-packages:
 python-packages:
 	pip install -r requirements.txt
 
-install: system-packages python-packages
+install: python-packages
 
 tests:
 	python manage.py test
@@ -19,3 +19,6 @@ run:
 	python manage.py run
 
 all: clean install tests run
+
+coverage:
+	coverage run -m unittest discover && coverage report -m

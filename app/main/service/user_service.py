@@ -6,11 +6,9 @@ from app.main.model.user import User
 
 
 def save_new_user(data):
-    user = User.query.filter_by(email=data['email']).first()
+    user = User.query.filter_by(username=data['username']).first()
     if not user:
         new_user = User(
-            public_id=str(uuid.uuid4()),
-            email=data['email'],
             username=data['username'],
             password=data['password'],
             registered_on=datetime.datetime.utcnow()
@@ -28,9 +26,8 @@ def save_new_user(data):
 def get_all_users():
     return User.query.all()
 
-
-def get_a_user(public_id):
-    return User.query.filter_by(public_id=public_id).first()
+def get_a_user(id):
+    return User.query.filter_by(id=id).first()
 
 
 def generate_token(user):
