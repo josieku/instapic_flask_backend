@@ -1,4 +1,4 @@
-#### FLASK RESTFUL API BOILER-PLATE WITH JWT
+# InstaPic Backend
 
 ### Terminal commands
 
