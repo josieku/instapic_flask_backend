@@ -1,3 +1,5 @@
+import os
+
 from flask_restplus import Api
 from flask import Blueprint
 
@@ -16,3 +18,10 @@ api = Api(blueprint,
 api.add_namespace(user_ns, path='/user')
 api.add_namespace(auth_ns, path='/auth')
 api.add_namespace(post_ns, path="/post")
+
+# initialize app
+from .main import create_app
+
+app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
+app.register_blueprint(blueprint)
+app.app_context().push()
