@@ -8,6 +8,8 @@ from app import app
 from app.main import db
 from app.main.model import user, blacklist
 
+from populate_db import populate
+
 manager = Manager(app)
 
 migrate = Migrate(app, db)
@@ -16,8 +18,8 @@ manager.add_command('db', MigrateCommand)
 
 
 @manager.command
-def run(PORT):
-    app.run(host='0.0.0.0', port=PORT)
+def run():
+    app.run(host='0.0.0.0', port=5000)
 
 
 @manager.command
@@ -32,6 +34,10 @@ def test(test_name=None):
     if result.wasSuccessful():
         return 0
     return 1
+
+@manager.command
+def populate_db():
+    populate()
 
 if __name__ == '__main__':
     manager.run()
