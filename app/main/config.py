@@ -28,7 +28,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'flask_boilerplate_prod.db')
-
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 config_by_name = dict(
     dev=DevelopmentConfig,
