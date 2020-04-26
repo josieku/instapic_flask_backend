@@ -6,7 +6,6 @@ class UserDto:
     user = api.model('user', {
         'username': fields.String(required=True, description='user username'),
         'password': fields.String(required=True, description='user password'),
-        'admin': fields.Boolean(description='admin privilleges')
     })
 
 

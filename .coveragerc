@@ -3,3 +3,4 @@ omit =
     ../venv/*
     manage.py
     *app/test/*
+    populate_db.py

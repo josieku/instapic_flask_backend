@@ -26,7 +26,6 @@ class Auth:
                 return response_object, 401
 
         except Exception as e:
-            print(e)
             response_object = {
                 'status': 'fail',
                 'message': 'Try again'
@@ -35,11 +34,12 @@ class Auth:
 
     @staticmethod
     def logout_user(data):
+        auth_token = ''
+
         if data:
             auth_token = data.split(" ")[1]
-        else:
-            auth_token = ''
-        if auth_token:
+        
+        if len(auth_token) > 0:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
                 # mark the token as blacklisted
@@ -69,7 +69,6 @@ class Auth:
                     'status': 'success',
                     'data': {
                         'user_id': user.id,
-                        'admin': user.admin,
                         'registered_on': str(user.registered_on)
                     }
                 }

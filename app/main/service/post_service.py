@@ -4,6 +4,7 @@ import base64
 import io
 
 from flask import jsonify
+from sqlalchemy import desc, asc
 
 from app.main import db
 from app.main.model.post import Post
@@ -17,8 +18,12 @@ def format_post_object(post):
     return post
 
 def get_all_posts():
-    raw_posts = Post.query.all()
+    raw_posts = Post.query.order_by(desc(Post.posted_on)).all()
     return list(map(format_post_object, raw_posts))
+
+def get_posts_by_page(max_posts, page):
+    raw_posts = Post.query.order_by(desc(Post.posted_on)).paginate(page, max_posts, False)
+    return list(map(format_post_object, raw_posts.items))
 
 # def get_post_by_id(id):
 #     return Post.query.filter_by(id=id).first()

@@ -1,9 +1,9 @@
 from flask import request
-from flask_restplus import Resource
+from flask_restplus import Resource, reqparse
 
 from app.main.util.decorator import token_required
 from ..util.dto import PostDto
-from ..service.post_service import get_all_posts, upload_new_post, delete_post
+from ..service.post_service import get_all_posts, get_posts_by_page, upload_new_post, delete_post
 
 api = PostDto.api
 
@@ -15,7 +15,21 @@ class Posts(Resource):
     @api.response(200, 'Retrieved posts')
     def get(self, current_user):
         """List all posts"""
-        return get_all_posts()
+        parser = reqparse.RequestParser()
+        parser.add_argument('pagesize', type=int)
+        parser.add_argument('page', type=int)
+        parser.add_argument('sort', type=int)
+        args = parser.parse_args()
+
+        try:
+            if args['pagesize'] is not None:
+                page = args['page'] or 1
+                return get_posts_by_page(args['pagesize'], page)
+
+            return get_all_posts()
+        except Exception as e:
+            return []
+
 
     @api.doc('upload post with image and short description')
     @token_required

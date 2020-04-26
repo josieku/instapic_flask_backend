@@ -13,7 +13,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     registered_on = db.Column(db.DateTime, nullable=False)
     username = db.Column(db.String(50), unique=True)
-    admin = db.Column(db.Boolean, default=False)
     password_hash = db.Column(db.String(100))
 
     @property

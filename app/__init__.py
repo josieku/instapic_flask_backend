@@ -2,6 +2,7 @@ import os
 
 from flask_restplus import Api
 from flask import Blueprint
+from flask_cors import CORS
 
 from .main.controller.user_controller import api as user_ns
 from .main.controller.auth_controller import api as auth_ns
@@ -25,3 +26,5 @@ from .main import create_app
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 app.register_blueprint(blueprint)
 app.app_context().push()
+app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app, resources={r"/*": {"origins": "*"}})

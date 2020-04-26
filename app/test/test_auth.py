@@ -1,7 +1,10 @@
-import unittest
+import unittest, datetime
+from unittest.mock import patch
 
 from app.main import db
 from app.main.model.blacklist import BlacklistToken
+from app.main.model.user import User
+from app.main.service.auth_helper import Auth
 import json
 from app.test.base import BaseTestCase
 
@@ -82,6 +85,25 @@ class TestAuthBlueprint(BaseTestCase):
             self.assertTrue(data['message'] == 'username or password does not match.')
             self.assertTrue(response.content_type == 'application/json')
             self.assertEqual(response.status_code, 401)
+
+    @patch('app.main.model.user.User.encode_auth_token')
+    def test_login_exception_raised(self, encode_auth_mock):
+        with self.client:
+            # user registration
+            new_user = User(
+                username='username',
+                password='123456',
+                registered_on=datetime.datetime.utcnow()
+            )
+            db.session.add(new_user)
+            db.session.commit()
+            # login throw exception
+            encode_auth_mock.side_effect = Exception('error')
+            response = login_user(self)
+            data = json.loads(response.data.decode())
+            self.assertTrue(data['status'] == 'fail')
+            self.assertTrue(data['message'] == 'Try again')
+            self.assertEqual(response.status_code, 500)
 
     def test_valid_logout(self):
         """ Test for logout before token expires """
