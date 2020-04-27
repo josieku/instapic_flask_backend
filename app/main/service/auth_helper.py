@@ -65,14 +65,15 @@ class Auth:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
                 user = User.query.filter_by(id=resp).first()
-                response_object = {
-                    'status': 'success',
-                    'data': {
-                        'user_id': user.id,
-                        'registered_on': str(user.registered_on)
+                if user:
+                    response_object = {
+                        'status': 'success',
+                        'data': {
+                            'user_id': user.id,
+                            'registered_on': str(user.registered_on)
+                        }
                     }
-                }
-                return response_object, 200
+                    return response_object, 200
             response_object = {
                 'status': 'fail',
                 'message': resp

@@ -15,16 +15,19 @@ class Posts(Resource):
     @api.response(200, 'Retrieved posts')
     def get(self, current_user):
         """List all posts"""
-        parser = reqparse.RequestParser()
-        parser.add_argument('pagesize', type=int)
-        parser.add_argument('page', type=int)
-        parser.add_argument('sort', type=int)
-        args = parser.parse_args()
+        # parser = reqparse.RequestParser()
+        # parser.add_argument('pagesize', type=int, required=False)
+        # parser.add_argument('page', type=int, required=False)
+        # parser.add_argument('sort', type=int, required=False)
+        # args = parser.parse_args()
+        pagesize = request.args.get('pagesize', default=0, type=int)
+        page = request.args.get('page', default=0, type=int)
+        # sort = request.args.get('sort', default=None)
 
         try:
-            if args['pagesize'] is not None:
-                page = args['page'] or 1
-                return get_posts_by_page(args['pagesize'], page)
+            if pagesize is not 0:
+                page = page or 1
+                return get_posts_by_page(pagesize, page)
 
             return get_all_posts()
         except Exception as e:

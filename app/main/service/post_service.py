@@ -25,12 +25,6 @@ def get_posts_by_page(max_posts, page):
     raw_posts = Post.query.order_by(desc(Post.posted_on)).paginate(page, max_posts, False)
     return list(map(format_post_object, raw_posts.items))
 
-# def get_post_by_id(id):
-#     return Post.query.filter_by(id=id).first()
-
-# def get_posts_by_user(user_id):
-#     return Post.query.filter_by(user_id=user_id)
-
 def upload_new_post(data, current_user):
     file_data = base64.b64decode(data['image']) # converts b64 string to binary
     new_post = Post(
