@@ -1,39 +1,43 @@
-# InstaPic Backend
+# InstaPic Backend (Reap Backend Coding Challenge)
 
-### Terminal commands
+This is a Flask REST backend for a photo sharing platform, InstaPic.  
 
-    Initial installation: make install
+## Terminal commands
 
-    To run test: make tests
+Initial installation (after setting up virtual environment): `make install`
 
-    To run application: make run
+To run test and see coverage: `make coverage`
 
-    To run all commands at once : make all
+To run application: `make run`
 
-
-### Viewing the app ###
-
-    Open the following url on your browser to view swagger documentation
-    http://127.0.0.1:5000/
+To run all commands at once : `make all`
 
 
-### Using Postman ####
+## Running and viewing the app locally ##
 
-    Authorization header is in the following format:
-
-    Key: Authorization
-    Value: "token_generated_during_login"
-
-    For testing authorization, url for getting all user requires an admin token while url for getting a single
-    user by public_id requires just a regular authentication.
-
-### Full description and guide ###
-https://medium.freecodecamp.org/structuring-a-flask-restplus-web-service-for-production-builds-c2ec676de563
+Once you run `make run` in the terminal, you can open the following url on your browser to view swagger documentation
+http://127.0.0.1:5000/
 
 
-### Contributing
-If you want to contribute to this flask restplus boilerplate, clone the repository and just start making pull requests.
+## Using Postman ##
 
+Authorization header is in the following format:
 ```
-https://github.com/cosmic-byte/flask-restplus-boilerplate.git
+Key: Authorization
+Value: "token_generated_during_login"
 ```
+Most routes require this token.
+
+## To Dos ## 
+Due to time constraints and my lack of experience with Flask, I have left out significant parts of the project.
+
+- User specific functionality - profile, settings
+- User interaction functionality - likes, bookmarks
+- Clean up REST responses (to be consistent)
+- Reach 100% test coverage (currently at 97%)
+- More comments and documentation for greater degree of legibility
+
+
+## Acknowledgements
+Developed from [cosmic-byte's Flask Restplus Boilerplate](https://github.com/cosmic-byte/flask-restplus-boilerplate.git
+).  

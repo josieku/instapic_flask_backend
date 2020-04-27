@@ -37,7 +37,7 @@ class Auth:
         auth_token = ''
 
         if data:
-            auth_token = data.split(" ")[1]
+            auth_token = data
         
         if len(auth_token) > 0:
             resp = User.decode_auth_token(auth_token)
