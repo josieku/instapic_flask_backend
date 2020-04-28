@@ -6,12 +6,12 @@ from app.test.fake_images import image1, image2
 
 def save_changes(data):
     db.session.add(data)
-    db.session.commit()
+    # db.session.commit()
 
 def populate():
     db.drop_all()
     db.create_all()
-    db.session.commit()
+    # db.session.commit()
 
     ''' Creates 3 users and 3 posts '''
     user1 = User(

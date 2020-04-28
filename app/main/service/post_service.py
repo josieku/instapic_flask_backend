@@ -40,7 +40,7 @@ def delete_post(post_id, user_id):
     post = Post.query.filter_by(user_id=user_id, id=post_id).first_or_404()
     
     db.session.delete(post)
-    db.session.commit()
+    # db.session.commit()
 
     response_object = {
         'message': 'Post deleted',
@@ -51,5 +51,5 @@ def delete_post(post_id, user_id):
 
 def save_changes(data):
     db.session.add(data)
-    db.session.commit()
+    # db.session.commit()
 
