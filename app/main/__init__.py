@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 
 from .config import config_by_name
 
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={'autocommit': True})
 flask_bcrypt = Bcrypt()
 
 
