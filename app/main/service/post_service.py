@@ -14,7 +14,7 @@ def format_post_object(post):
     # converts all images to base64 readable string
     # populates object with username
     post.username = post.user.username
-    post.image = base64.b64encode(post.image)
+    # post.image = base64.b64encode(post.image)
     return post
 
 def get_all_posts():
@@ -26,9 +26,9 @@ def get_posts_by_page(max_posts, page):
     return list(map(format_post_object, raw_posts.items))
 
 def upload_new_post(data, current_user):
-    file_data = base64.b64decode(data['image']) # converts b64 string to binary
+    # file_data = base64.b64decode(data['image']) # converts b64 string to binary
     new_post = Post(
-        image=file_data,
+        image=data['image'],
         description=data['description'],
         user_id=current_user.id,
         posted_on=datetime.datetime.utcnow()

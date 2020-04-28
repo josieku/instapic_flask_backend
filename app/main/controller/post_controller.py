@@ -15,14 +15,8 @@ class Posts(Resource):
     @api.response(200, 'Retrieved posts')
     def get(self, current_user):
         """List all posts"""
-        # parser = reqparse.RequestParser()
-        # parser.add_argument('pagesize', type=int, required=False)
-        # parser.add_argument('page', type=int, required=False)
-        # parser.add_argument('sort', type=int, required=False)
-        # args = parser.parse_args()
         pagesize = request.args.get('pagesize', default=0, type=int)
         page = request.args.get('page', default=0, type=int)
-        # sort = request.args.get('sort', default=None)
 
         try:
             if pagesize is not 0:
