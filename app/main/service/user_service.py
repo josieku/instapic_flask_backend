@@ -29,7 +29,6 @@ def get_all_users():
 def get_a_user(id):
     return User.query.filter_by(id=id).first()
 
-
 def generate_token(user):
     try:
         # generate the auth token
@@ -50,5 +49,5 @@ def generate_token(user):
 
 def save_changes(data):
     db.session.add(data)
-    # db.session.commit()
+    db.session.commit()
 

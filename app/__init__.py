@@ -25,17 +25,24 @@ CORS(blueprint, origins=['*'], support_credentials=True, automatic_options=True)
 
 # initialize app
 from .main import create_app
+from .main import db
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 app.register_blueprint(blueprint)
 app.app_context().push()
 app.url_map.strict_slashes = False
     
-@app.after_request
-def after_request(response):
+# @app.after_request
+# def after_request(response):
     # print('response after request', response.data)
     # response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
     # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
 # #   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
 # #   response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
+    # return response
+
+@app.teardown_request
+def teardown_request(exception):
+    if exception:
+        db.session.rollback()
+    db.session.remove()

@@ -96,7 +96,7 @@ class TestAuthBlueprint(BaseTestCase):
                 registered_on=datetime.datetime.utcnow()
             )
             db.session.add(new_user)
-            # db.session.commit()
+            db.session.commit()
             # login throw exception
             encode_auth_mock.side_effect = Exception('error')
             response = login_user(self)
@@ -163,7 +163,7 @@ class TestAuthBlueprint(BaseTestCase):
             blacklist_token = BlacklistToken(
                 token=json.loads(resp_login.data.decode())['Authorization'])
             db.session.add(blacklist_token)
-            # db.session.commit()
+            db.session.commit()
             # blacklisted valid token logout
             response = self.client.post(
                 '/auth/logout',

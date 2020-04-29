@@ -13,7 +13,7 @@ def register_user():
         registered_on=datetime.datetime.utcnow()
     )
     db.session.add(user)
-    # db.session.commit()
+    db.session.commit()
     return user
 class TestUserModel(BaseTestCase):
     def test_user_repr(self):
